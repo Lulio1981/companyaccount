@@ -19,7 +19,7 @@ public class WebClientService {
     public WebClient getWebClient() {
         if (webClient == null) {
             this.webClient = webBuilder
-                    .baseUrl("")
+                    .baseUrl("http://localhost:8085/client/company")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .build();
         }

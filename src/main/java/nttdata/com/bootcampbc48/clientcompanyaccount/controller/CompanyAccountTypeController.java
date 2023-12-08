@@ -50,7 +50,7 @@ public class CompanyAccountTypeController {
     @PostMapping
     public Single<ResponseEntity<CompanyAccountType>> create(@RequestBody CreateAccountTypeCompanyDto createAccountTypeCompanyDto) {
         return service.create(createAccountTypeCompanyDto).map(p -> ResponseEntity
-                .created(URI.create("/client/company/accounttype".concat(p.getId())))
+                .created(URI.create("/client/company/accounttype".concat(p.get_id())))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(p)
         );
@@ -61,7 +61,7 @@ public class CompanyAccountTypeController {
     public Single<ResponseEntity<CompanyAccountType>> update(@RequestBody UpdateAccountTypeCompanyDto updateAccountTypeCompanyDto) {
         return service.update(updateAccountTypeCompanyDto)
                 .map(p -> ResponseEntity.created(URI.create("/client/company/accounttype"
-                                .concat(p.getId())
+                                .concat(p.get_id())
                         ))
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(p));
@@ -71,7 +71,7 @@ public class CompanyAccountTypeController {
     public Single<ResponseEntity<CompanyAccountType>> delete(@RequestBody DeleteAccountTypeCompanyDto deleteAccountTypeCompanyDto) {
         return service.delete(deleteAccountTypeCompanyDto)
                 .map(p -> ResponseEntity.created(URI.create("/client/company/accounttype"
-                                .concat(p.getId())
+                                .concat(p.get_id())
                         ))
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(p));

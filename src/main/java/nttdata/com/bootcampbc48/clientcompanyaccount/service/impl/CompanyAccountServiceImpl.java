@@ -1,8 +1,6 @@
 package nttdata.com.bootcampbc48.clientcompanyaccount.service.impl;
 
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.*;
 import lombok.RequiredArgsConstructor;
 import nttdata.com.bootcampbc48.clientcompanyaccount.dto.CreateAccountCompanyDto;
 import nttdata.com.bootcampbc48.clientcompanyaccount.dto.DeleteAccountCompanyDto;
@@ -63,20 +61,28 @@ public class CompanyAccountServiceImpl implements CompanyAccountService {
 
     @Override
     public Single<CompanyAccount> create(CreateAccountCompanyDto createAccountCompanyDto) {
-        return repository.findByIdClientAndRegistrationStatus(createAccountCompanyDto.getIdClient(), createAccountCompanyDto.getRegistrationStatus())
-                .filter(account -> account.getIdAccountType().equals("6568f6fb13752c52feeaac6a")
-                        && account.getIdAccountType().equals(createAccountCompanyDto.getIdAccountType()))
-                .firstElement()
-                .map(account -> {
-                    throw new BadRequestException(
-                            "ClientId",
-                            "[save] The client" + createAccountCompanyDto.getIdClient() + " have other accounts.",
-                            "An error occurred while trying to create an item.",
-                            getClass(),
-                            "save"
-                    );
-                })
-                .switchIfEmpty(repository.save(modelMapper.reverseMapCreateWithDate(createAccountCompanyDto)))
+        return Maybe.just(createAccountCompanyDto)
+                .filter(acc -> acc.getIdAccountType().equals("6568f69613752c52feeaac69"))
+                .flatMapSingle(acc -> repository.findByAccountNumberAndRegistrationStatus(
+                                createAccountCompanyDto.getAccountNumber(), createAccountCompanyDto.getRegistrationStatus())
+                        .flatMapSingle(account -> {
+                            System.out.println("Exist account " +account.getAccountNumber());
+                            return Single.error(new BadRequestException(
+                                    "Account",
+                                    "An error occurred while trying to create an item.",
+                                    "The account" + createAccountCompanyDto.getAccountNumber() + " exist.",
+                                    getClass(),
+                                    "save"
+                            ));
+                        })
+                        .switchIfEmpty(repository.save(modelMapper.reverseMapCreateWithDate(createAccountCompanyDto))))
+                .switchIfEmpty(Single.error(new BadRequestException(
+                        "switchIfEmpty",
+                        "An error occurred while trying to create an item.",
+                        "The account" + createAccountCompanyDto.getAccountNumber() + " must be type Current Account.",
+                        getClass(),
+                        "save"
+                )))
                 .doOnError(e -> Single.error(new BadRequestException(
                         "ERROR",
                         "An error occurred while trying to create an item.",

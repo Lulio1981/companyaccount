@@ -13,6 +13,5 @@ public class UpdateAccountCompanyHolderDto {
     private String phoneNumber;
     private String mobilePhone;
     private String accountNumber;
-    private short registrationStatus;
 
 }

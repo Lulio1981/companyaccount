@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface CompanyAccountRepository extends RxJava3CrudRepository<CompanyAccount, String> {
+public interface SignatoryRepository extends RxJava3CrudRepository<CompanyAccount, String> {
 
     public Maybe<CompanyAccount> findById(String id);
 
