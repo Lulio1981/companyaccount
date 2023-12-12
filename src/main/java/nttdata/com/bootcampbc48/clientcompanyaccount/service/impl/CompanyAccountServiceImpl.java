@@ -75,7 +75,8 @@ public class CompanyAccountServiceImpl implements CompanyAccountService {
                                     "save"
                             ));
                         })
-                        .switchIfEmpty(repository.save(modelMapper.reverseMapCreateWithDate(createAccountCompanyDto))))
+                        .switchIfEmpty(repository.save(modelMapper.reverseMapCreateWithDate(createAccountCompanyDto)))
+                )
                 .switchIfEmpty(Single.error(new BadRequestException(
                         "switchIfEmpty",
                         "An error occurred while trying to create an item.",

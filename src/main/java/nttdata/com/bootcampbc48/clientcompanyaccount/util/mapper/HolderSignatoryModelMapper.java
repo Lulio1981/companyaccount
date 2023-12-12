@@ -1,30 +1,30 @@
 package nttdata.com.bootcampbc48.clientcompanyaccount.util.mapper;
 
 import nttdata.com.bootcampbc48.clientcompanyaccount.dto.*;
-import nttdata.com.bootcampbc48.clientcompanyaccount.entity.Holder;
+import nttdata.com.bootcampbc48.clientcompanyaccount.entity.HolderSignatory;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 
-public class CompanyAccountHolderModelMapper {
+public class HolderSignatoryModelMapper {
 
     private final ModelMapper mapper = new ModelMapper();
 
-    private static CompanyAccountHolderModelMapper instance;
+    private static HolderSignatoryModelMapper instance;
 
-    private CompanyAccountHolderModelMapper() {
+    private HolderSignatoryModelMapper() {
     }
 
-    public static CompanyAccountHolderModelMapper singleInstance() {
+    public static HolderSignatoryModelMapper singleInstance() {
         if (instance == null) {
-            instance = new CompanyAccountHolderModelMapper();
+            instance = new HolderSignatoryModelMapper();
         }
         return instance;
     }
 
     //MAPPERS BEGIN
-    public Holder reverseMapCreateWithDate(CreateAccountCompanyHolderDto createDto) {
-        Holder personalClient = mapper.map(createDto, Holder.class);
+    public HolderSignatory reverseMapCreateWithDate(CreateHolderSignatoryDto createDto) {
+        HolderSignatory personalClient = mapper.map(createDto, HolderSignatory.class);
 
         personalClient.setInsertionDate(new Date());
         personalClient.setRegistrationStatus((short) 1);
@@ -33,7 +33,7 @@ public class CompanyAccountHolderModelMapper {
     }
 
 
-    public Holder reverseMapUpdate(Holder accountType, UpdateAccountCompanyHolderDto updateDto) {
+    public HolderSignatory reverseMapUpdate(HolderSignatory accountType, UpdateHolderSignatoryDto updateDto) {
 
         accountType.setDocumentNumber(updateDto.getDocumentNumber());
         accountType.setName(updateDto.getName());
@@ -42,12 +42,12 @@ public class CompanyAccountHolderModelMapper {
         accountType.setAddress(updateDto.getAddress());
         accountType.setPhoneNumber(updateDto.getPhoneNumber());
         accountType.setMobilePhone(updateDto.getMobilePhone());
-        accountType.setAccountNumber(updateDto.getAccountNumber());
+        accountType.setType(updateDto.getType());
 
         return accountType;
     }
 
-    public Holder reverseMapDelete(Holder personalClient, DeleteAccountCompanyHolderDto deleteDto) {
+    public HolderSignatory reverseMapDelete(HolderSignatory personalClient, DeleteHolderSignatoryDto deleteDto) {
 
         personalClient.setRegistrationStatus((short) 0);
 

@@ -3,7 +3,7 @@ package nttdata.com.bootcampbc48.clientcompanyaccount.dto;
 import lombok.Data;
 
 @Data
-public class UpdateAccountCompanyHolderDto {
+public class UpdateHolderSignatoryDto {
 
     private String documentNumber;
     private String name;
@@ -13,5 +13,6 @@ public class UpdateAccountCompanyHolderDto {
     private String phoneNumber;
     private String mobilePhone;
     private String accountNumber;
+    private String type;
 
 }

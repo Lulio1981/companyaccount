@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class CompanyAccount {
 
     @Id
     private String _id;
-    private String idClient;
+    private String ruc;
     private String accountNumber;
     private String idAccountType;
     private short registrationStatus;

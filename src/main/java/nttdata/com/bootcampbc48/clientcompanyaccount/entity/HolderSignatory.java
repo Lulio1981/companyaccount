@@ -6,15 +6,13 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 @Data
 @Document
-public class Signatory implements Serializable {
+public class HolderSignatory implements Serializable {
 
-    private static final long serialVersionUID = -1518847114715450167L;
+    private static final long serialVersionUID = -747313791234289185L;
 
     @Id
     private String _id;
@@ -25,6 +23,8 @@ public class Signatory implements Serializable {
 
     private String lastName;
 
+    private String type;
+
     private Integer age;
 
     private Integer address;
@@ -33,7 +33,7 @@ public class Signatory implements Serializable {
 
     private String mobilePhone;
 
-    private String accountNumber;
+    private String ruc;
 
     private short registrationStatus;
 
@@ -42,4 +42,5 @@ public class Signatory implements Serializable {
     private String insertionUser;
 
     private String insertionTerminal;
+
 }

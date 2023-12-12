@@ -5,23 +5,23 @@ import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 import nttdata.com.bootcampbc48.clientcompanyaccount.dto.*;
-import nttdata.com.bootcampbc48.clientcompanyaccount.entity.Holder;
-import nttdata.com.bootcampbc48.clientcompanyaccount.repository.HolderRepository;
-import nttdata.com.bootcampbc48.clientcompanyaccount.service.HolderService;
+import nttdata.com.bootcampbc48.clientcompanyaccount.entity.HolderSignatory;
+import nttdata.com.bootcampbc48.clientcompanyaccount.repository.HolderSignatoryRepository;
+import nttdata.com.bootcampbc48.clientcompanyaccount.service.HolderSignatoryService;
 import nttdata.com.bootcampbc48.clientcompanyaccount.util.handler.exceptions.BadRequestException;
-import nttdata.com.bootcampbc48.clientcompanyaccount.util.mapper.CompanyAccountHolderModelMapper;
+import nttdata.com.bootcampbc48.clientcompanyaccount.util.mapper.HolderSignatoryModelMapper;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @RequiredArgsConstructor
-public class HolderServiceImpl implements HolderService {
+public class HolderSignatoryServiceImpl implements HolderSignatoryService {
 
-    static CompanyAccountHolderModelMapper modelMapper = CompanyAccountHolderModelMapper.singleInstance();
-    public final HolderRepository repository;
+    static HolderSignatoryModelMapper modelMapper = HolderSignatoryModelMapper.singleInstance();
+    public final HolderSignatoryRepository repository;
 
     @Override
-    public Flowable<Holder> findAll() {
+    public Flowable<HolderSignatory> findAll() {
         return repository.findAll()
                 .switchIfEmpty(Flowable.error(new BadRequestException(
                         "ID",
@@ -34,7 +34,7 @@ public class HolderServiceImpl implements HolderService {
 
 
     @Override
-    public Single<Holder> findByDocumentNumberAndRegistrationStatus(String documentNumber, short registrationStatus) {
+    public Single<HolderSignatory> findByDocumentNumberAndRegistrationStatus(String documentNumber, short registrationStatus) {
         return repository.findByDocumentNumberAndRegistrationStatus(documentNumber, registrationStatus)
                 .switchIfEmpty(Maybe.error(new BadRequestException(
                         "ID",
@@ -43,26 +43,25 @@ public class HolderServiceImpl implements HolderService {
                         getClass(),
                         "getByDocumentNumber.switchIfEmpty"
                 )))
-                .cast(Holder.class).toSingle();
+                .cast(HolderSignatory.class).toSingle();
 
     }
 
     @Override
-    public Single<Holder> findByAccountNumberAndRegistrationStatus(String accountNumber, short registrationStatus) {
-        return repository.findByDocumentNumberAndRegistrationStatus(accountNumber, registrationStatus)
-                .switchIfEmpty(Maybe.error(new BadRequestException(
+    public Flowable<HolderSignatory> findByAccountNumberAndRegistrationStatusAndType(String accountNumber, short registrationStatus, String type) {
+        return repository.findByAccountNumberAndRegistrationStatusAndType(accountNumber, registrationStatus, type)
+                .switchIfEmpty(Flowable.error(new BadRequestException(
                         "ID",
                         "An error occurred while trying to get an item.",
                         "The client with account number  " + accountNumber + " does not exists.",
                         getClass(),
                         "getByDocumentNumber.switchIfEmpty"
                 )))
-                .cast(Holder.class).toSingle();
-
+                .cast(HolderSignatory.class);
     }
 
     @Override
-    public Single<Holder> create(CreateAccountCompanyHolderDto createAccountCompanyHolderDto) {
+    public Single<HolderSignatory> create(CreateHolderSignatoryDto createAccountCompanyHolderDto) {
 
         return repository.findById(createAccountCompanyHolderDto.getAccountNumber())
                 .map(p -> {
@@ -82,12 +81,12 @@ public class HolderServiceImpl implements HolderService {
                         getClass(),
                         "save.onErrorResume"
                 )))
-                .cast(Holder.class);
+                .cast(HolderSignatory.class);
     }
 
 
     @Override
-    public Single<Holder> update(UpdateAccountCompanyHolderDto updateAccountCompanyHolderDto) {
+    public Single<HolderSignatory> update(UpdateHolderSignatoryDto updateAccountCompanyHolderDto) {
 
         return repository.findByDocumentNumberAndRegistrationStatus(updateAccountCompanyHolderDto.getDocumentNumber(), (short) 1)
                 .switchIfEmpty(Single.error(new Exception("An item with the id number " + updateAccountCompanyHolderDto.getDocumentNumber() + " was not found. >> switchIfEmpty")))
@@ -98,11 +97,11 @@ public class HolderServiceImpl implements HolderService {
                         e.getMessage(),
                         getClass(),
                         "update.onErrorResume"
-                ))).cast(Holder.class);
+                ))).cast(HolderSignatory.class);
     }
 
     @Override
-    public Single<Holder> delete(DeleteAccountCompanyHolderDto deleteAccountCompanyHolderDto) {
+    public Single<HolderSignatory> delete(DeleteHolderSignatoryDto deleteAccountCompanyHolderDto) {
 
         return repository.findById(deleteAccountCompanyHolderDto.getId())
                 .switchIfEmpty(Single.error(new Exception("An item with the id number " + deleteAccountCompanyHolderDto.getId() + " was not found. >> switchIfEmpty")))

@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class DeleteAccountCompanyHolderDto {
+public class DeleteHolderSignatoryDto {
 
     private String id;
 

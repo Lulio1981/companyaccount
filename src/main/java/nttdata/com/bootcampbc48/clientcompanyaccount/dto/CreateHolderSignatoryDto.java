@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class CreateAccountCompanyHolderDto {
+public class CreateHolderSignatoryDto {
 
     private String documentNumber;
     private String name;
@@ -15,6 +15,7 @@ public class CreateAccountCompanyHolderDto {
     private String phoneNumber;
     private String mobilePhone;
     private String accountNumber;
+    private String type;
     private Date insertionDate;
     private String insertionUser;
     private String insertionTerminal;
