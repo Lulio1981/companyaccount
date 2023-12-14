@@ -66,7 +66,6 @@ public class CompanyAccountServiceImpl implements CompanyAccountService {
                 .flatMapSingle(acc -> repository.findByAccountNumberAndRegistrationStatus(
                                 createAccountCompanyDto.getAccountNumber(), createAccountCompanyDto.getRegistrationStatus())
                         .flatMapSingle(account -> {
-                            System.out.println("Exist account " +account.getAccountNumber());
                             return Single.error(new BadRequestException(
                                     "Account",
                                     "An error occurred while trying to create an item.",

@@ -33,18 +33,18 @@ public class HolderSignatoryModelMapper {
     }
 
 
-    public HolderSignatory reverseMapUpdate(HolderSignatory accountType, UpdateHolderSignatoryDto updateDto) {
+    public HolderSignatory reverseMapUpdate(HolderSignatory holderSignatory, UpdateHolderSignatoryDto updateDto) {
 
-        accountType.setDocumentNumber(updateDto.getDocumentNumber());
-        accountType.setName(updateDto.getName());
-        accountType.setLastName(updateDto.getLastName());
-        accountType.setAge(updateDto.getAge());
-        accountType.setAddress(updateDto.getAddress());
-        accountType.setPhoneNumber(updateDto.getPhoneNumber());
-        accountType.setMobilePhone(updateDto.getMobilePhone());
-        accountType.setType(updateDto.getType());
+        holderSignatory.setDocumentNumber(updateDto.getDocumentNumber());
+        holderSignatory.setName(updateDto.getName());
+        holderSignatory.setLastName(updateDto.getLastName());
+        holderSignatory.setAge(updateDto.getAge());
+        holderSignatory.setAddress(updateDto.getAddress());
+        holderSignatory.setPhoneNumber(updateDto.getPhoneNumber());
+        holderSignatory.setMobilePhone(updateDto.getMobilePhone());
+        holderSignatory.setType(updateDto.getType());
 
-        return accountType;
+        return holderSignatory;
     }
 
     public HolderSignatory reverseMapDelete(HolderSignatory personalClient, DeleteHolderSignatoryDto deleteDto) {
