@@ -6,10 +6,8 @@ import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 import nttdata.com.bootcampbc48.clientcompanyaccount.dto.*;
 import nttdata.com.bootcampbc48.clientcompanyaccount.entity.CompanyHolderSignatory;
-import nttdata.com.bootcampbc48.clientcompanyaccount.entity.HolderSignatory;
 import nttdata.com.bootcampbc48.clientcompanyaccount.repository.CompanyHolderSignatoryRepository;
 import nttdata.com.bootcampbc48.clientcompanyaccount.service.CompanyHolderSignatoryService;
-import nttdata.com.bootcampbc48.clientcompanyaccount.service.HolderSignatoryService;
 import nttdata.com.bootcampbc48.clientcompanyaccount.util.handler.exceptions.BadRequestException;
 import nttdata.com.bootcampbc48.clientcompanyaccount.util.mapper.CompanyHolderSignatoryModelMapper;
 import org.springframework.stereotype.Service;
@@ -50,8 +48,8 @@ public class CompanyHolderSignatoryServiceImpl implements CompanyHolderSignatory
     }
 
     @Override
-    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatusAndType(String accountNumber, short registrationStatus, String type) {
-        return repository.findByAccountNumberAndRegistrationStatusAndType(accountNumber, registrationStatus, type)
+    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatus(String accountNumber, short registrationStatus) {
+        return repository.findByAccountNumberAndRegistrationStatus(accountNumber, registrationStatus)
                 .switchIfEmpty(Flowable.error(new BadRequestException(
                         "ID",
                         "An error occurred while trying to get an item.",

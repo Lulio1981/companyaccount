@@ -9,7 +9,7 @@ import org.springframework.data.repository.reactive.RxJava3CrudRepository;
 @EnableReactiveMongoRepositories
 public interface CompanyHolderSignatoryRepository extends RxJava3CrudRepository<CompanyHolderSignatory, String> {
 
-    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatusAndType(String accountNumber, short registrationStatus, String type);
+    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatus(String accountNumber, short registrationStatus);
 
     public Maybe<CompanyHolderSignatory> findByDocumentNumberAndRegistrationStatus(String documentNumber, short registrationStatus);
 

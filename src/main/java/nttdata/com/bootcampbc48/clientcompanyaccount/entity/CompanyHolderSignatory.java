@@ -14,14 +14,9 @@ import java.util.Date;
 @Document
 public class CompanyHolderSignatory {
 
-    @Id
-    private String _id;
-
     private String accountNumber;
 
     private String documentNumber;
-
-    private String type;
 
     private short registrationStatus;
 

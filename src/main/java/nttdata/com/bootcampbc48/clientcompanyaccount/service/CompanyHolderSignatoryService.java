@@ -13,7 +13,7 @@ public interface CompanyHolderSignatoryService {
 
     public Single<CompanyHolderSignatory> findByDocumentNumberAndRegistrationStatus(String documentNumber, short registrationStatus);
 
-    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatusAndType(String accountNumber, short registrationStatus, String type);
+    public Flowable<CompanyHolderSignatory> findByAccountNumberAndRegistrationStatus(String accountNumber, short registrationStatus);
 
     public Single<CompanyHolderSignatory> update(UpdateCompanyHolderSignatoryDto updateCompanyHolderSignatoryDto);
 
